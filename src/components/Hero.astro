@@ -11,6 +11,8 @@ import { site } from '../data/site';
   </div>
 
   <div class="hero__wrap">
+    <img src="/images/logo-mark.svg" alt="" aria-hidden="true" class="hero__mark" />
+
     <div class="hero__card">
       <Picture
         src={heroImg}
@@ -61,7 +63,7 @@ import { site } from '../data/site';
   .wordmark__name {
     font-family: var(--font-display);
     font-weight: 300;
-    font-size: clamp(46px, 9vw, 132px);
+    font-size: clamp(46px, 9vw, 152px);
     line-height: 1.25;
     letter-spacing: -0.035em;
     color: var(--espresso);
@@ -80,14 +82,28 @@ import { site } from '../data/site';
     position: relative;
     z-index: 1;
     max-width: var(--container-wide);
-    margin: -52px auto 0;
+    margin: -62px auto 0;
     padding-inline: var(--gutter);
+  }
+
+  .hero__mark {
+    position: absolute;
+    z-index: 0;
+    top: 45%;
+    left: 94%;
+    width: min(880px, 110vw);
+    aspect-ratio: 926 / 937;
+    transform: translate(-50%, -50%);
+    opacity: 0.1;
+    pointer-events: none;
+    user-select: none;
   }
 
   .hero__card {
     position: relative;
+    z-index: 1;
     overflow: hidden;
-    min-height: min(74vh, 660px);
+    min-height: min(84vh, 960px);
     display: flex;
     align-items: flex-end;
     box-shadow: 0 30px 70px rgba(64, 21, 4, 0.14);
@@ -120,7 +136,7 @@ import { site } from '../data/site';
   .hero__body {
     position: relative;
     width: 100%;
-    padding: 64px 60px 60px;
+    padding: 60px 60px 120px;
   }
 
   .hero__content {
@@ -134,7 +150,7 @@ import { site } from '../data/site';
   .hero__title {
     font-family: var(--font-display);
     font-weight: 300;
-    font-size: 50px;
+    font-size: 60px;
     line-height: 1.06;
     letter-spacing: -0.025em;
     color: var(--surface);

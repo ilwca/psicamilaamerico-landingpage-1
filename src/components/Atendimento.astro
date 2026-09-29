@@ -25,10 +25,11 @@ const servicos = [
     <Picture
       src={atendimentoImg}
       formats={['avif', 'webp']}
-        fallbackFormat="jpg"
-        width={1280}
+      fallbackFormat="jpg"
+      width={1280}
       widths={[480, 720, 960, 1280]}
-      sizes="50vw"
+      sizes="(max-width: 900px) 100vw, 50vw"
+      border-radius="15px"
       alt=""
       class="split__img"
     />
@@ -133,8 +134,9 @@ const servicos = [
 
   .atendimento__row {
     display: grid;
+    --row-gap: 28px;
     grid-template-columns: 60px 1fr;
-    gap: 28px;
+    gap: var(--row-gap);
     padding: 38px 0;
     border-top: 1px solid var(--outline-soft);
   }
@@ -150,7 +152,9 @@ const servicos = [
     background: var(--surface);
     padding: 4px 10px;
     align-self: start;
-    justify-self: start;
+    /* fundo ocupa a coluna inteira + o gap, até o início do texto; o número fica no lugar */
+    justify-self: stretch;
+    margin-right: calc(-1 * var(--row-gap));
   }
 
   .atendimento__body {
@@ -174,9 +178,14 @@ const servicos = [
     max-width: 52ch;
   }
 
+  /* No mobile a foto vira fundo da seção inteira, com overlay claro e texto escuro */
   @media (max-width: 900px) {
     .split__bg {
-      display: none;
+      width: 100%;
+    }
+
+    .split__overlay {
+      background: rgba(255, 248, 245, 0.669);
     }
 
     .atendimento__grid {
@@ -197,8 +206,8 @@ const servicos = [
     }
 
     .atendimento__row {
+      --row-gap: 18px;
       grid-template-columns: 48px minmax(0, 1fr);
-      gap: 18px;
       padding: 30px 0;
     }
   }

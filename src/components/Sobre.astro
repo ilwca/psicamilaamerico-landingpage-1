@@ -11,7 +11,7 @@ const temas = ['Ansiedade', 'Autoestima', 'Relacionamentos', 'Luto e perdas', 'D
       <Picture
         src={sobreImg}
         formats={['avif', 'webp']}
-        fallbackFormat="jpg"
+        fallbackFormat="png"
         width={816}
         widths={[400, 600, 816]}
         sizes="(max-width: 900px) min(488px, 100vw), 488px"
@@ -70,6 +70,12 @@ const temas = ['Ansiedade', 'Autoestima', 'Relacionamentos', 'Luto e perdas', 'D
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  /* A foto é um recorte que termina em linha reta; o degradê dissolve a base no fundo da seção. */
+  .sobre__img {
+    -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 98%);
+    mask-image: linear-gradient(to bottom, #000 70%, transparent 98%);
   }
 
   .sobre__badge {
@@ -142,9 +148,11 @@ const temas = ['Ansiedade', 'Autoestima', 'Relacionamentos', 'Luto e perdas', 'D
     }
   }
 
+  /* No celular a foto é omitida; como o <img> usa loading="lazy" (padrão do Astro),
+     o display: none também impede o download. */
   @media (max-width: 480px) {
     .sobre__media {
-      height: 380px;
+      display: none;
     }
   }
 </style>
