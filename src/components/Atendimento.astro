@@ -1,0 +1,205 @@
+---
+import { Picture } from 'astro:assets';
+import atendimentoImg from '../assets/atendimento.webp';
+
+const servicos = [
+  {
+    titulo: 'Psicoterapia Individual',
+    texto:
+      'Sessões semanais para elaborar ansiedade, autoestima e questões de relacionamento, no seu tempo e sem julgamentos.',
+  },
+  {
+    titulo: 'Atendimento Online',
+    texto: 'O mesmo cuidado e sigilo de um consultório, em um encontro por videochamada — de onde você estiver.',
+  },
+  {
+    titulo: 'Primeira Consulta',
+    texto:
+      'Um encontro inicial para nos conhecermos, entender sua história e alinhar como podemos seguir lado a lado.',
+  },
+];
+---
+
+<div class="split">
+  <div class="split__bg" aria-hidden="true">
+    <Picture
+      src={atendimentoImg}
+      formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        width={1280}
+      widths={[480, 720, 960, 1280]}
+      sizes="50vw"
+      alt=""
+      class="split__img"
+    />
+    <div class="split__overlay"></div>
+  </div>
+
+  <section id="atendimento" class="container atendimento">
+    <div class="atendimento__grid">
+      <div class="atendimento__intro">
+        <span class="eyebrow atendimento__eyebrow">Atendimento</span>
+        <h2 class="heading atendimento__title">Um espaço para cada momento da sua jornada</h2>
+      </div>
+
+      <ol class="atendimento__list">
+        {
+          servicos.map((s, i) => (
+            <li class="atendimento__row">
+              <span class="atendimento__num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="atendimento__body">
+                <h3>{s.titulo}</h3>
+                <p>{s.texto}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+</div>
+
+<style>
+  /* overflow: clip (e não hidden) para não quebrar o position: sticky da coluna esquerda */
+  .split {
+    position: relative;
+    overflow: clip;
+  }
+
+  .split__bg {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 50%;
+  }
+
+  .split__bg :global(picture),
+  .split__img,
+  .split__overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .split__img {
+    object-fit: cover;
+  }
+
+  .split__overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(var(--overlay), 0.74) 0%,
+      rgba(var(--overlay), 0.6) 55%,
+      rgba(var(--overlay), 0.25) 100%
+    );
+  }
+
+  .atendimento {
+    position: relative;
+    z-index: 1;
+    padding-block: var(--section-y);
+  }
+
+  .atendimento__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 72px;
+    align-items: start;
+  }
+
+  .atendimento__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    position: sticky;
+    top: 120px;
+  }
+
+  .atendimento__eyebrow {
+    color: var(--peach);
+  }
+
+  .atendimento__title {
+    color: var(--surface);
+  }
+
+  .atendimento__list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .atendimento__row {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 28px;
+    padding: 38px 0;
+    border-top: 1px solid var(--outline-soft);
+  }
+
+  .atendimento__row:last-child {
+    border-bottom: 1px solid var(--outline-soft);
+  }
+
+  .atendimento__num {
+    font-family: var(--font-display);
+    font-size: 15px;
+    color: var(--primary);
+    background: var(--surface);
+    padding: 4px 10px;
+    align-self: start;
+    justify-self: start;
+  }
+
+  .atendimento__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .atendimento__body h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 25px;
+    color: var(--espresso);
+  }
+
+  .atendimento__body p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--on-surface-variant);
+    font-weight: 300;
+    max-width: 52ch;
+  }
+
+  @media (max-width: 900px) {
+    .split__bg {
+      display: none;
+    }
+
+    .atendimento__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+    }
+
+    .atendimento__intro {
+      position: static;
+    }
+
+    .atendimento__eyebrow {
+      color: var(--primary-container);
+    }
+
+    .atendimento__title {
+      color: var(--espresso);
+    }
+
+    .atendimento__row {
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 18px;
+      padding: 30px 0;
+    }
+  }
+</style>

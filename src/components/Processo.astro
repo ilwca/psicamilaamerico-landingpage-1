@@ -1,0 +1,177 @@
+---
+import { Picture } from 'astro:assets';
+import processoImg from '../assets/processo.png';
+
+const passos = [
+  {
+    titulo: 'Primeiro contato',
+    texto:
+      'Você escreve pelo WhatsApp ou e-mail e conta, em poucas palavras, o que te motivou. A partir daí encontramos um horário que caiba na sua rotina.',
+    nota: 'Resposta rápida · Sem compromisso',
+  },
+  {
+    titulo: 'Sessão inicial',
+    texto:
+      'O primeiro encontro é para te conhecer: sua história, o que te trouxe aqui e o que espera do processo. Escuta genuína, sem julgamentos.',
+    nota: 'Online ou presencial · Você define o ritmo',
+  },
+  {
+    titulo: 'Acompanhamento',
+    texto:
+      'Seguimos com sessões regulares, revisitando objetivos quando fizer sentido. O cuidado se adapta a cada fase da sua jornada.',
+    nota: 'No seu tempo · Cuidado contínuo',
+  },
+];
+---
+
+<div class="split">
+  <div class="split__bg" aria-hidden="true">
+    <Picture
+      src={processoImg}
+      formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        width={1280}
+      widths={[480, 720, 960, 1280]}
+      sizes="50vw"
+      alt=""
+      class="split__img"
+    />
+  </div>
+
+  <section id="processo" class="container processo">
+    <div class="processo__head">
+      <span class="eyebrow">Como funciona</span>
+      <h2 class="heading">Três passos, no seu ritmo</h2>
+    </div>
+
+    <ol class="processo__cards">
+      {
+        passos.map((p, i) => (
+          <li class="card">
+            <span class="card__num">{i + 1}</span>
+            <h3>{p.titulo}</h3>
+            <p>{p.texto}</p>
+            <span class="card__note">{p.nota}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</div>
+
+<style>
+  .split {
+    position: relative;
+    overflow: clip;
+  }
+
+  .split__bg {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 50%;
+  }
+
+  .split__bg :global(picture),
+  .split__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .processo {
+    position: relative;
+    z-index: 1;
+    padding-block: var(--section-y);
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .processo__head {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 52ch;
+  }
+
+  .processo__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Os cards ficam progressivamente translúcidos sobre a foto; o texto escurece
+     na mesma proporção para manter contraste AA. */
+  .card {
+    --card-bg: var(--surface-low);
+    --card-text: var(--on-surface-variant);
+    --card-note: var(--outline);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 36px 32px;
+    border-radius: 8px;
+    background: var(--card-bg);
+  }
+
+  .card:nth-child(2) {
+    --card-bg: rgba(255, 241, 234, 0.78);
+    --card-text: #382d27;
+  }
+
+  .card:nth-child(3) {
+    --card-bg: rgba(255, 241, 234, 0.4);
+    --card-text: #382d27;
+    --card-note: #402310;
+  }
+
+  .card__num {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    background: var(--primary);
+    color: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 14px;
+  }
+
+  .card h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 22px;
+    color: var(--espresso);
+  }
+
+  .card p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--card-text);
+    font-weight: 300;
+  }
+
+  .card__note {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--card-note);
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .split__bg {
+      display: none;
+    }
+
+    .card {
+      padding: 30px 24px;
+    }
+  }
+</style>

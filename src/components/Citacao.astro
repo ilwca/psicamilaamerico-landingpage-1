@@ -1,0 +1,74 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="citacao" aria-label="Citação">
+  <figure class="citacao__inner">
+    <span class="citacao__mark" aria-hidden="true">“</span>
+    <blockquote>
+      <p>Não existe pressa nem fórmula pronta. Cada sessão é construída com respeito ao seu tempo e à sua história.</p>
+    </blockquote>
+    <figcaption>{site.name}</figcaption>
+  </figure>
+</section>
+
+<style>
+  .citacao {
+    background: var(--surface-quote);
+    padding-block: 120px;
+  }
+
+  .citacao__inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-inline: var(--gutter);
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+    align-items: flex-start;
+  }
+
+  .citacao__mark {
+    font-family: var(--font-display);
+    font-size: 56px;
+    line-height: 0.6;
+    color: var(--quote-mark);
+  }
+
+  blockquote {
+    margin: 0;
+  }
+
+  blockquote p {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 34px;
+    line-height: 1.42;
+    letter-spacing: -0.015em;
+    color: var(--espresso);
+    text-wrap: pretty;
+  }
+
+  figcaption {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    color: var(--outline);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .citacao {
+      padding-block: var(--section-y);
+    }
+
+    blockquote p {
+      font-size: 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    blockquote p {
+      font-size: 21px;
+    }
+  }
+</style>

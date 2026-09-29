@@ -1,0 +1,150 @@
+---
+import { Picture } from 'astro:assets';
+import sobreImg from '../assets/sobre.webp';
+
+const temas = ['Ansiedade', 'Autoestima', 'Relacionamentos', 'Luto e perdas', 'Desenvolvimento pessoal'];
+---
+
+<section id="sobre" class="sobre">
+  <div class="container sobre__grid">
+    <div class="sobre__media">
+      <Picture
+        src={sobreImg}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        width={816}
+        widths={[400, 600, 816]}
+        sizes="(max-width: 900px) min(488px, 100vw), 488px"
+        alt="Retrato de Camila Américo, de cabelos castanhos na altura dos ombros e blusa marrom, sorrindo com a mão próxima ao rosto"
+        class="sobre__img"
+      />
+      <span class="sobre__badge">Mestra em<br />Psicologia</span>
+    </div>
+
+    <div class="sobre__text">
+      <span class="eyebrow">Sobre mim</span>
+      <h2 class="heading sobre__title">
+        Cuidar da mente é um ato de coragem — e você não precisa enfrentar isso sem apoio.
+      </h2>
+      <p class="sobre__lead">
+        Sou Camila Américo, psicóloga clínica e mestra em Psicologia. Acredito que a terapia é, antes de tudo, um
+        encontro: um espaço seguro para olhar para dentro, entender suas histórias e construir, com calma, novos
+        caminhos.
+      </p>
+      <ul class="sobre__tags" aria-label="Temas que acompanho">
+        {temas.map((tema) => <li>{tema}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sobre {
+    background: var(--surface-low);
+    padding-block: var(--section-y);
+  }
+
+  .sobre__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 88px;
+    align-items: start;
+  }
+
+  /* No protótipo a foto (488×605) é mais larga que a coluna e invade o gap;
+     o limite de +68px evita que ela encoste no texto em telas entre 900 e 1140px. */
+  .sobre__media {
+    position: relative;
+    width: 488px;
+    max-width: calc(100% + 68px);
+    aspect-ratio: 488 / 605;
+    margin: -8px 0 0 2px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .sobre__media :global(picture),
+  .sobre__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sobre__badge {
+    position: absolute;
+    left: 55px;
+    top: 30px;
+    width: 99px;
+    height: 99px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--peach-light);
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+  }
+
+  .sobre__text {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 12px;
+  }
+
+  .sobre__title {
+    line-height: 1.18;
+  }
+
+  .sobre__lead {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--on-surface-variant);
+    font-weight: 300;
+    max-width: 58ch;
+  }
+
+  .sobre__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 6px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sobre__tags li {
+    padding: 9px 18px;
+    border-radius: 4px;
+    background: var(--secondary-container);
+    color: var(--espresso);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+
+  @media (max-width: 900px) {
+    .sobre__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+    }
+
+    .sobre__media {
+      width: 100%;
+      max-width: 488px;
+      aspect-ratio: auto;
+      height: 440px;
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .sobre__media {
+      height: 380px;
+    }
+  }
+</style>

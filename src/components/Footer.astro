@@ -1,0 +1,53 @@
+---
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© {year} {site.name} — {site.role} · {site.crp}</p>
+    <nav class="footer__links" aria-label="Redes e contato">
+      <a href={site.instagram}>Instagram</a>
+      <a href={site.whatsapp}>WhatsApp</a>
+      <a href={`mailto:${site.email}`}>E-mail</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--espresso);
+    border-top: 1px solid var(--espresso-line);
+    padding-block: 36px;
+  }
+
+  .footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 32px;
+    flex-wrap: wrap;
+  }
+
+  .footer p {
+    font-size: 12px;
+    color: var(--sand-muted);
+  }
+
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px;
+  }
+
+  .footer__links a {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--sand);
+  }
+
+  .footer__links a:hover {
+    color: var(--peach);
+  }
+</style>

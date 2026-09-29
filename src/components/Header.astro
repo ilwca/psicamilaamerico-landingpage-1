@@ -1,0 +1,48 @@
+<header class="header">
+  <nav class="nav" aria-label="Navegação principal">
+    <a href="#sobre">Sobre</a>
+    <a href="#atendimento">Atendimento</a>
+    <a href="#processo">Como funciona</a>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(255, 248, 245, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .nav {
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: 20px var(--gutter);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 34px;
+  }
+
+  .nav a {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--on-surface-variant);
+  }
+
+  .nav a:hover {
+    color: var(--primary-container);
+  }
+
+  @media (max-width: 900px) {
+    .nav {
+      gap: 22px;
+    }
+
+    .nav a {
+      font-size: 12px;
+    }
+  }
+</style>

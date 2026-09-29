@@ -1,0 +1,127 @@
+---
+import { site } from '../data/site';
+---
+
+<section id="contato" class="contato">
+  <div class="container contato__grid">
+    <div class="contato__text">
+      <span class="eyebrow eyebrow--light">Vamos conversar</span>
+      <h2 class="heading contato__title">Dar o primeiro passo também é coragem</h2>
+      <p>
+        Se você sente que chegou a hora de cuidar de você, escreva. Vamos entender, em conjunto, o melhor caminho para
+        começar.
+      </p>
+    </div>
+
+    <div class="contato__cta">
+      <a class="cta cta--solid" href={site.whatsapp}>Conversar no WhatsApp <span aria-hidden="true">→</span></a>
+      <a class="cta cta--outline" href={`mailto:${site.email}`}>Enviar um e-mail <span aria-hidden="true">→</span></a>
+      <p class="contato__info">Atendimento presencial e online<br />{site.hours}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contato {
+    background: var(--espresso);
+    padding-block: var(--section-y);
+  }
+
+  .contato__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 72px;
+    align-items: end;
+  }
+
+  .contato__text {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .contato__title {
+    font-size: 48px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--cream);
+  }
+
+  .contato__text p {
+    max-width: 46ch;
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--sand);
+    font-weight: 300;
+  }
+
+  .contato__cta {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .cta {
+    padding: 18px 28px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cta span {
+    font-family: var(--font-display);
+  }
+
+  .cta--solid {
+    background: var(--peach-light);
+    color: var(--espresso);
+  }
+
+  .cta--solid:hover {
+    background: var(--cream);
+    color: var(--espresso);
+  }
+
+  .cta--outline {
+    border: 1px solid var(--taupe);
+    color: var(--cream);
+  }
+
+  .cta--outline:hover {
+    border-color: var(--peach);
+    color: var(--peach);
+  }
+
+  .contato__info {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--sand-muted);
+    margin-top: 12px;
+  }
+
+  @media (max-width: 900px) {
+    .contato__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+    }
+
+    .contato__title {
+      font-size: 30px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contato__title {
+      font-size: 27px;
+    }
+
+    .cta {
+      justify-content: center;
+    }
+  }
+</style>
