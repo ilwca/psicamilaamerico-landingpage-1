@@ -6,8 +6,9 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="container footer__inner">
-    <p>© {year} {site.name} — {site.role} · {site.crp}</p>
-    <nav class="footer__links" aria-label="Redes e contato">
+    <p>© {year} {site.name} — {site.role} em {site.address.city} – {site.address.state} · {site.crp}</p>
+    <nav class="footer__links" aria-label="Páginas, redes e contato">
+      <a href="/terapia">Terapia</a>
       <a href={site.instagram}>Instagram</a>
       <a href={site.whatsapp}>WhatsApp</a>
       <a href={`mailto:${site.email}`}>E-mail</a>

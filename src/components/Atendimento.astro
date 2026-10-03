@@ -1,12 +1,13 @@
 ---
 import { Picture } from 'astro:assets';
 import atendimentoImg from '../assets/atendimento.webp';
+import { site } from '../data/site';
 
 const servicos = [
   {
     titulo: 'Psicoterapia Individual',
     texto:
-      'Sessões semanais para elaborar ansiedade, autoestima e questões de relacionamento, no seu tempo e sem julgamentos.',
+      `Sessões semanais no consultório em ${site.address.city} – ${site.address.state} para elaborar ansiedade, autoestima e questões de relacionamento, no seu tempo e sem julgamentos.`,
   },
   {
     titulo: 'Atendimento Online',
@@ -21,7 +22,7 @@ const servicos = [
 ---
 
 <div class="split">
-  <div class="split__bg" aria-hidden="true">
+  <div class="split__bg">
     <Picture
       src={atendimentoImg}
       formats={['avif', 'webp']}
@@ -30,10 +31,10 @@ const servicos = [
       widths={[480, 720, 960, 1280]}
       sizes="(max-width: 900px) 100vw, 50vw"
       border-radius="15px"
-      alt=""
+      alt={`Consultório de psicologia de Camila Américo em ${site.address.city} – ${site.address.state}: poltronas verdes junto à janela, banquinho de madeira e plantas`}
       class="split__img"
     />
-    <div class="split__overlay"></div>
+    <div class="split__overlay" aria-hidden="true"></div>
   </div>
 
   <section id="atendimento" class="container atendimento">

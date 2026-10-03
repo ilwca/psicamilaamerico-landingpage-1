@@ -9,6 +9,7 @@ import { site } from '../data/site';
       <p>Não existe pressa nem fórmula pronta. Cada sessão é construída com respeito ao seu tempo e à sua história.</p>
     </blockquote>
     <figcaption>{site.name}</figcaption>
+    <a class="citacao__cta" href="/terapia">Entenda como funciona a terapia <span aria-hidden="true">→</span></a>
   </figure>
 </section>
 
@@ -56,6 +57,29 @@ import { site } from '../data/site';
     text-transform: uppercase;
   }
 
+  .citacao__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 6px;
+    padding: 15px 28px;
+    border: 1px solid var(--primary);
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--primary);
+  }
+
+  .citacao__cta span {
+    font-family: var(--font-display);
+  }
+
+  .citacao__cta:hover {
+    background: var(--primary);
+    color: var(--surface);
+  }
+
   @media (max-width: 900px) {
     .citacao {
       padding-block: var(--section-y);
@@ -69,6 +93,11 @@ import { site } from '../data/site';
   @media (max-width: 480px) {
     blockquote p {
       font-size: 21px;
+    }
+
+    .citacao__cta {
+      align-self: stretch;
+      justify-content: center;
     }
   }
 </style>

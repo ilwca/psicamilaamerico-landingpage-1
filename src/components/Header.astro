@@ -1,8 +1,21 @@
+---
+interface Props {
+  links?: { href: string; label: string }[];
+}
+
+const {
+  links = [
+    { href: '#sobre', label: 'Sobre' },
+    { href: '#atendimento', label: 'Atendimento' },
+    { href: '#processo', label: 'Como funciona' },
+    { href: '/terapia', label: 'Terapia' },
+  ],
+} = Astro.props;
+---
+
 <header class="header">
   <nav class="nav" aria-label="Navegação principal">
-    <a href="#sobre">Sobre</a>
-    <a href="#atendimento">Atendimento</a>
-    <a href="#processo">Como funciona</a>
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
   </nav>
 </header>
 
@@ -23,7 +36,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 34px;
+    flex-wrap: wrap;
+    gap: 12px 34px;
   }
 
   .nav a {
@@ -38,7 +52,7 @@
 
   @media (max-width: 900px) {
     .nav {
-      gap: 22px;
+      gap: 10px 20px;
     }
 
     .nav a {

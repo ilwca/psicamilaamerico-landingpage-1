@@ -1,6 +1,7 @@
 ---
 import { Picture } from 'astro:assets';
 import sobreImg from '../assets/sobre.webp';
+import { site } from '../data/site';
 
 const temas = ['Ansiedade', 'Autoestima', 'Relacionamentos', 'Luto e perdas', 'Desenvolvimento pessoal'];
 ---
@@ -15,7 +16,7 @@ const temas = ['Ansiedade', 'Autoestima', 'Relacionamentos', 'Luto e perdas', 'D
         width={816}
         widths={[400, 600, 816]}
         sizes="(max-width: 900px) min(488px, 100vw), 488px"
-        alt="Retrato de Camila Américo, de cabelos castanhos na altura dos ombros e blusa marrom, sorrindo com a mão próxima ao rosto"
+        alt="Retrato da psicóloga Camila Américo, de cabelos castanhos na altura dos ombros e blusa marrom, sorrindo com a mão próxima ao rosto"
         class="sobre__img"
       />
       <span class="sobre__badge">Mestra em<br />Psicologia</span>
@@ -27,7 +28,7 @@ const temas = ['Ansiedade', 'Autoestima', 'Relacionamentos', 'Luto e perdas', 'D
         Cuidar da mente é um ato de coragem — e você não precisa enfrentar isso sem apoio.
       </h2>
       <p class="sobre__lead">
-        Sou Camila Américo, psicóloga clínica e mestra em Psicologia. Acredito que a terapia é, antes de tudo, um
+        Sou Camila Américo, psicóloga clínica em {site.address.city} ({site.address.stateName}) e mestra em Psicologia. Acredito que a terapia é, antes de tudo, um
         encontro: um espaço seguro para olhar para dentro, entender suas histórias e construir, com calma, novos
         caminhos.
       </p>

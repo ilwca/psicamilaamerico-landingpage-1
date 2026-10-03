@@ -5,10 +5,10 @@ import { site } from '../data/site';
 ---
 
 <section id="topo" class="hero">
-  <div class="wordmark">
-    <p class="wordmark__name">{site.name}</p>
-    <p class="wordmark__role">Psicóloga clínica · {site.crp}</p>
-  </div>
+  <h1 class="wordmark">
+    <span class="wordmark__name">{site.name}</span>
+    <span class="wordmark__role">Psicóloga clínica em {site.address.city} – {site.address.state} · {site.crp}</span>
+  </h1>
 
   <div class="hero__wrap">
     <img src="/images/logo-mark.svg" alt="" aria-hidden="true" class="hero__mark" />
@@ -31,7 +31,7 @@ import { site } from '../data/site';
       <div class="hero__body">
         <div class="hero__content">
           <span class="eyebrow eyebrow--light">Escuta antes da técnica</span>
-          <h1 class="hero__title">Um espaço de escuta para você se encontrar.</h1>
+          <p class="hero__title">Um espaço de escuta para você se encontrar.</p>
           <div class="hero__actions">
             <a class="btn btn--solid" href={site.whatsapp}>Conversar no WhatsApp</a>
             <a class="btn btn--ghost" href="#sobre">Conhecer meu trabalho</a>
@@ -71,6 +71,7 @@ import { site } from '../data/site';
   }
 
   .wordmark__role {
+    line-height: 1.6;
     font-size: 11px;
     letter-spacing: 0.34em;
     font-weight: 500;

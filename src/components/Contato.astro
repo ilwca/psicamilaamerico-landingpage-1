@@ -1,22 +1,39 @@
 ---
 import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+
+const {
+  title = 'Dar o primeiro passo também é coragem',
+  text = 'Se você sente que chegou a hora de cuidar de você, escreva. Vamos entender, em conjunto, o melhor caminho para começar.',
+} = Astro.props;
+
+const { address } = site;
+const local = `${address.city} – ${address.stateName}`;
+const endereco = [address.street, address.neighborhood, address.postalCode && `CEP ${address.postalCode}`]
+  .filter(Boolean)
+  .join(' · ');
 ---
 
 <section id="contato" class="contato">
   <div class="container contato__grid">
     <div class="contato__text">
       <span class="eyebrow eyebrow--light">Vamos conversar</span>
-      <h2 class="heading contato__title">Dar o primeiro passo também é coragem</h2>
-      <p>
-        Se você sente que chegou a hora de cuidar de você, escreva. Vamos entender, em conjunto, o melhor caminho para
-        começar.
-      </p>
+      <h2 class="heading contato__title">{title}</h2>
+      <p>{text}</p>
     </div>
 
     <div class="contato__cta">
       <a class="cta cta--solid" href={site.whatsapp}>Conversar no WhatsApp <span aria-hidden="true">→</span></a>
       <a class="cta cta--outline" href={`mailto:${site.email}`}>Enviar um e-mail <span aria-hidden="true">→</span></a>
-      <p class="contato__info">Atendimento presencial e online<br />{site.hours}</p>
+      <address class="contato__info">
+        Atendimento presencial em {local} e online<br />
+        {endereco && <>{endereco}<br /></>}
+        {site.hours}
+      </address>
     </div>
   </div>
 </section>
@@ -102,6 +119,7 @@ import { site } from '../data/site';
     line-height: 1.7;
     color: var(--sand-muted);
     margin-top: 12px;
+    font-style: normal;
   }
 
   @media (max-width: 900px) {

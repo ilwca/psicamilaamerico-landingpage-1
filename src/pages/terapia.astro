@@ -1,0 +1,461 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Contato from '../components/Contato.astro';
+import Footer from '../components/Footer.astro';
+import terapiaImg from '../assets/terapia.webp';
+import { site } from '../data/site';
+import { faq, paraQuem } from '../data/terapia';
+
+const { city, state } = site.address;
+const title = `Terapia em ${city} – ${state}: o que é e como funciona | ${site.name}`;
+const description = `Entenda o que é psicoterapia, para quem é indicada e como funcionam as sessões presenciais em ${city} – ${state} e online com a psicóloga ${site.name} (${site.crp}).`;
+
+const pageUrl = new URL('/terapia', Astro.site).href;
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Início', item: Astro.site?.href },
+    { '@type': 'ListItem', position: 2, name: 'Terapia', item: pageUrl },
+  ],
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.pergunta,
+    acceptedAnswer: { '@type': 'Answer', text: f.resposta },
+  })),
+};
+---
+
+<Base title={title} description={description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+
+  <Header
+    links={[
+      { href: '/', label: 'Início' },
+      { href: '#o-que-e', label: 'O que é' },
+      { href: '#para-quem', label: 'Para quem é' },
+      { href: '#faq', label: 'Dúvidas' },
+    ]}
+  />
+
+  <main>
+    <section class="intro">
+      <div class="container intro__inner">
+        <a class="intro__back" href="/"><span aria-hidden="true">←</span> Voltar ao início</a>
+        <span class="eyebrow">Psicoterapia em {city} – {state}</span>
+        <h1 class="intro__title">O que é terapia, e como ela pode ajudar você.</h1>
+      </div>
+    </section>
+
+    <section id="o-que-e" class="feature">
+      <div class="feature__bg" aria-hidden="true">
+        <Picture
+          src={terapiaImg}
+          formats={['avif', 'webp']}
+          fallbackFormat="jpg"
+          width={2560}
+          widths={[960, 1280, 1920, 2560]}
+          sizes="100vw"
+          alt=""
+          class="feature__img"
+        />
+        <div class="feature__veil"></div>
+      </div>
+
+      <div class="container split-grid feature__grid">
+        <div class="split-grid__head">
+          <span class="eyebrow eyebrow--lg">O que é</span>
+          <h2 class="heading">Um encontro para se escutar com mais clareza</h2>
+        </div>
+        <div class="feature__body">
+          <p>
+            A psicoterapia é um processo de cuidado conduzido por uma psicóloga, em que você encontra um espaço seguro
+            para falar sobre o que sente, pensa e vive. Não é um conselho pronto nem uma conversa comum: é uma escuta
+            qualificada, orientada pela ética e pela ciência.
+          </p>
+          <p>
+            Ao longo das sessões, você passa a reconhecer padrões, compreender suas emoções e construir formas mais
+            leves de lidar com aquilo que pesa. O ritmo é seu — e o caminho é construído em conjunto, no consultório em
+            {city} – {state} ou online.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="para-quem" class="para-quem">
+      <div class="container split-grid">
+        <div class="split-grid__head">
+          <span class="eyebrow eyebrow--lg">Para quem é</span>
+          <h2 class="heading">Você não precisa estar em crise para começar</h2>
+          <img src="/images/logo-mark.svg" alt="" aria-hidden="true" class="para-quem__logo" />
+        </div>
+
+        <ol class="para-quem__list">
+          {
+            paraQuem.map((item, i) => (
+              <li class="para-quem__row">
+                <span class="para-quem__num">{String(i + 1).padStart(2, '0')}</span>
+                <div class="para-quem__body">
+                  <h3>{item.titulo}</h3>
+                  <p>{item.texto}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <section id="faq" class="faq">
+      <div class="faq__inner">
+        <div class="faq__head">
+          <span class="faq__mark" aria-hidden="true">“</span>
+          <span class="eyebrow">Perguntas frequentes</span>
+          <h2 class="heading">Dúvidas comuns antes de começar</h2>
+        </div>
+
+        <div class="faq__list">
+          {
+            faq.map((f) => (
+              <details class="faq__item">
+                <summary>
+                  <h3 class="faq__q">{f.pergunta}</h3>
+                  <span class="faq__icon" aria-hidden="true">+</span>
+                </summary>
+                <p class="faq__a">{f.resposta}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <Contato
+      title="Ainda com dúvidas? Escreva para mim"
+      text="Responderei com calma, e vamos entender juntas se este é o momento certo para começar."
+    />
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  /* — intro — */
+  .intro {
+    padding: 72px 0 56px;
+  }
+
+  .intro__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .intro__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--outline);
+  }
+
+  .intro__back span {
+    font-family: var(--font-display);
+    font-size: 15px;
+  }
+
+  .intro__title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 58px;
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+    color: var(--espresso);
+    text-wrap: pretty;
+  }
+
+  /* — grid de duas colunas usado em "O que é" e "Para quem é" — */
+  .split-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 72px;
+    align-items: start;
+  }
+
+  .split-grid__head {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .eyebrow--lg {
+    font-size: 15px;
+  }
+
+  /* — o que é — */
+  .feature {
+    position: relative;
+    min-height: 520px;
+    padding-block: 93px;
+    overflow: hidden;
+  }
+
+  .feature__bg,
+  .feature__bg :global(picture),
+  .feature__img,
+  .feature__veil {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .feature__img {
+    object-fit: cover;
+    object-position: left center;
+  }
+
+  /* Em telas largas o texto fica sobre a área clara da foto; abaixo disso, um véu garante o contraste. */
+  .feature__veil {
+    display: none;
+    background: rgba(255, 248, 245, 0.82);
+  }
+
+  .feature__grid {
+    position: relative;
+  }
+
+  .feature__body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .feature__body p {
+    font-size: 20px;
+    line-height: 1.8;
+    color: var(--on-surface-variant);
+    font-weight: 300;
+    max-width: 60ch;
+  }
+
+  /* — para quem é — */
+  .para-quem {
+    background: var(--surface-low);
+    padding-block: var(--section-y);
+  }
+
+  .para-quem__logo {
+    width: 320px;
+    max-width: 100%;
+    aspect-ratio: 926 / 937;
+    margin-top: 12px;
+    object-fit: contain;
+    opacity: 0.28;
+    filter: sepia(0.6) saturate(0.7);
+    mix-blend-mode: multiply;
+  }
+
+  .para-quem__list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .para-quem__row {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 20px;
+    padding: 26px 0;
+    border-top: 1px solid var(--outline-soft);
+  }
+
+  .para-quem__row:last-child {
+    border-bottom: 1px solid var(--outline-soft);
+  }
+
+  .para-quem__num {
+    font-family: var(--font-display);
+    font-size: 15px;
+    color: var(--primary-container);
+    padding-top: 3px;
+  }
+
+  .para-quem__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .para-quem__body h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 21px;
+    color: var(--espresso);
+  }
+
+  .para-quem__body p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--on-surface-variant);
+    font-weight: 300;
+  }
+
+  /* — faq — */
+  .faq {
+    background: var(--surface-quote);
+    padding-block: 120px;
+  }
+
+  .faq__inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-inline: var(--gutter);
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .faq__head {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .faq__mark {
+    font-family: var(--font-display);
+    font-size: 56px;
+    line-height: 0.6;
+    color: var(--quote-mark);
+  }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--quote-mark);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--quote-mark);
+  }
+
+  .faq__item summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 28px 0;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__q {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 1.35;
+    color: var(--espresso);
+  }
+
+  .faq__icon {
+    flex: none;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--primary-container);
+    transition: transform 0.25s ease;
+  }
+
+  .faq__item[open] .faq__icon {
+    transform: rotate(45deg);
+  }
+
+  .faq__a {
+    padding: 0 48px 30px 0;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--on-surface-variant);
+    font-weight: 300;
+    max-width: 62ch;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq__icon {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 1300px) {
+    .feature__veil {
+      display: block;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .intro,
+    .feature,
+    .faq {
+      padding-block: var(--section-y);
+    }
+
+    .intro__title {
+      font-size: 38px;
+    }
+
+    .split-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+    }
+
+    .feature {
+      min-height: 0;
+    }
+
+    .feature__body p {
+      font-size: 17px;
+    }
+
+    .para-quem__logo {
+      width: 180px;
+      margin-top: 4px;
+    }
+
+    .faq__q {
+      font-size: 20px;
+    }
+
+    .faq__a {
+      padding-right: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .intro__title {
+      font-size: 32px;
+    }
+
+    .feature__body p {
+      font-size: 16px;
+    }
+  }
+</style>

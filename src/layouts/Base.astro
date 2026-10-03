@@ -4,32 +4,56 @@ import heroImg from '../assets/hero.webp';
 import { site } from '../data/site';
 import '../styles/global.css';
 
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = site.title, description = site.description } = Astro.props;
+
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = await getImage({ src: heroImg, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
 const ogImageUrl = new URL(ogImage.src, Astro.site);
 
+const { address } = site;
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Psychologist',
+  // schema.org não tem um tipo "Psicólogo"; MedicalBusiness é um LocalBusiness reconhecido pelo Google.
+  '@type': 'MedicalBusiness',
   name: `${site.name} — ${site.role}`,
   description: site.description,
-  url: canonical.href,
+  url: Astro.site?.href,
   image: ogImageUrl.href,
   email: site.email,
-  telephone: '+55 63 8449-2226',
+  telephone: site.phone,
   sameAs: [site.instagram],
   openingHours: 'Mo-Fr 09:00-18:00',
   identifier: site.crp,
+  address: {
+    '@type': 'PostalAddress',
+    ...(address.street && { streetAddress: address.street }),
+    ...(address.postalCode && { postalCode: address.postalCode }),
+    addressLocality: address.city,
+    addressRegion: address.state,
+    addressCountry: address.country,
+  },
+  areaServed: { '@type': 'City', name: `${address.city}, ${address.stateName}` },
+  founder: {
+    '@type': 'Person',
+    name: site.name,
+    jobTitle: site.role,
+    hasCredential: site.crp,
+  },
 };
----
+------
 
 <!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{site.title}</title>
-    <meta name="description" content={site.description} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#fff8f5" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -38,15 +62,19 @@ const jsonLd = {
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:title" content={site.title} />
-    <meta property="og:description" content={site.description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name}, psicóloga clínica em ${site.address.city} – ${site.address.state}`} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="geo.region" content={`BR-${site.address.state}`} />
+    <meta name="geo.placename" content={site.address.city} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <slot name="head" />
   </head>
   <body>
     <slot />
